@@ -11,14 +11,10 @@
  * Return a pointer to a newly-heap-allocated struct stack. Don't forget to
  * initialize the contents of the struct!
  */
-struct stack *stack_new() {     
-    
-    struct stack* l1 = malloc(sizeof(struct stack));
-    l1->top = NULL;
-    return l1;
-
-  printf("TODO: implement stack_new\n"); 
-  return NULL;
+struct stack *stack_new() {       
+  struct stack* l1 = malloc(sizeof(struct stack));
+  l1->top = NULL;
+  return l1;
 }
 
 /*
