@@ -12,7 +12,11 @@
  * initialize the contents of the struct!
  */
 struct stack *stack_new() {     
-  // TODO
+    
+    struct stack* l1 = malloc(sizeof(struct stack));
+    l1->top = NULL;
+    return l1;
+
   printf("TODO: implement stack_new\n"); 
   return NULL;
 }
@@ -23,18 +27,44 @@ struct stack *stack_new() {
  * another copy of the square on the heap.
  */
 void stack_push(struct stack *stk, struct square *sq) {     
-  // TODO
-  printf("TODO: implement stack_push\n"); 
+     
+   struct node* n = malloc(sizeof(struct node));
+   n->sq = sq;
+   
+   if(stk->top  == NULL){
+       stk->top = n;
+   }
+   else{
+       struct node* x = stk->top;
+       x = (*x).next;
+       (*n).next = x;
+       stk->top = n;   
+   }
 }
 
 /*
  * Returns a reference to the square stored on the heap.
  * Deallocate the heap-allocated struct node that is popped from stk. 
  */
-struct square *stack_pop(struct stack *stk) {      
-  // TODO
-  printf("TODO: implement stack_pop\n"); 
-  return NULL;
+struct square *stack_pop(struct stack *stk) { 
+  struct node* x = stk->top;
+  if(stk->top = NULL){
+    return NULL;
+  }
+  else{  
+    x = (*x).next; 
+    struct sq* s = (*x).sq;
+    if((*x).next == NULL){
+      stk->top = NULL;
+    }
+    else{
+      struct node* y = (*x).next;
+      stk->top = y;
+    }
+    free(x);
+    x = NULL;
+    return s;
+  }
 }
 
 /*
@@ -43,8 +73,20 @@ struct square *stack_pop(struct stack *stk) {
  * the nodes on the stack; this will be handled elsewhere.
  */
 void stack_free(struct stack *stk) {     
-  //TODO
-  printf("TODO: implement stack_free\n");        
+  struct node* x = stk->top;
+    if(stk->top == NULL){
+        free(stk);
+        stk = NULL;
+    }
+    else{
+        struct node* temp = stk->top;
+        while((*x).next!= NULL){
+            x = (*x).next;
+            free(temp);
+            temp = x;
+        }
+        free(temp);
+    }      
 }
 
 /*
