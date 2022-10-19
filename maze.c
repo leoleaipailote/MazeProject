@@ -24,7 +24,6 @@ struct maze *maze_new(const char *filename) {
   FILE *in_file;
   in_file = fopen(filename, "r");
 
-
   struct maze *ret = malloc( sizeof(struct maze) );
     
   if (in_file == NULL) {
@@ -39,6 +38,7 @@ struct maze *maze_new(const char *filename) {
 
     struct square **gr = malloc( sizeof( struct square *) * rows);
 
+    //creating space for the columns ; making space for the pointers to the squares 
     for (int i = 0; i < rows; i++){
         gr[i] = malloc( sizeof( struct square ) * cols);
     }
@@ -47,9 +47,6 @@ struct maze *maze_new(const char *filename) {
 
     maze_squares_fill(ret, in_file);
     fclose(in_file);
-
-    printf("maze_print\n");
-    maze_print(ret);
   }
 
   return ret;
@@ -70,18 +67,22 @@ struct maze *maze_new(const char *filename) {
  */
 void maze_squares_fill(struct maze* mz, FILE *fptr) {     
 
+  //going through each space on the 2-D array and filling them with squares
   for(int i = 0; i < mz->rows; i++) {
 	  for(int j = 0; j < mz->cols; j++){
    	  char ch = fgetc(fptr);
       printf("%c ", ch);
-      
+
+      //creating the square and the corresponding pointer that will hold the information for each 
+      //space on the array. Also filling out the grid from the maze
       struct square holder = {EMPTY, TOEXPLORE, i, j, NULL};
       struct square *ptr = &holder;
 
       ptr->type = ch;
-
+    
       (*mz).grid[i][j] = *ptr;
-      
+
+      //setting the start and exit squares if the corresponding types are shown in the file 
       if( ch == START){
         mz->start = &(*mz).grid[i][j];
       }else if( ch == EXIT){
@@ -92,21 +93,21 @@ void maze_squares_fill(struct maze* mz, FILE *fptr) {
     printf("\n");
    	fgetc(fptr); // Consume newline
   }
-    printf("\n");
-    square_print(mz->start);
-    square_print(mz->exit);
 }
 
+//freeing heap space so we don't have memory leak
 void maze_free(struct maze *mz) {     
-  // TODO
 
+  //freeing the cols ; freeing the pointers to the square structs
   for(int i = 0; i < mz->rows; i++){
     free( (*mz).grid[i] );
   }
-
+  
+  //freeing the rows ; freeing the pointers to the pointers to square structs
   free( mz->grid );
 
-  free( mz);
+  //freeing the maze pointer
+  free( mz );
 }
 
 /*
