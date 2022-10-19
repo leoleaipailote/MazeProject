@@ -25,18 +25,41 @@ struct maze *maze_new(const char *filename) {
   FILE *in_file;
   in_file = fopen(filename, "r");
 
+
+  struct maze *ret = malloc( sizeof(struct maze) );
+    
   if (in_file == NULL) {
     printf("Can't open file for reading.\n");
   }
   else {
     fscanf(in_file, "%d %d\n", &rows, &cols);
     printf("rows %d and columns %d \n", rows, cols);
-        
-    maze_squares_fill(NULL, in_file);
+
+    (*ret).rows = rows;
+    ret->cols = cols;
+
+    struct square *strt = malloc ( sizeof(struct square) );
+    struct square *ex = malloc ( sizeof(struct square) );
+
+    ret->start = strt;
+    ret->exit = ex;
+
+    struct square **gr = malloc( sizeof( struct square *) * rows);
+
+    for (int i = 0; i < rows; i++){
+        gr[i] = malloc( sizeof( struct square ) * cols);
+    }
+
+    ret->grid = gr;
+
+    maze_squares_fill(ret, in_file);
     fclose(in_file);
+
+    printf("maze_print\n");
+    maze_print(ret);
   }
 
-  return NULL;
+  return ret;
 }
 
 /*
@@ -55,11 +78,15 @@ struct maze *maze_new(const char *filename) {
 void maze_squares_fill(struct maze* mz, FILE *fptr) {     
   printf("TODO: complete maze_squares_fill");
 
-  printf("Echo maze1 grid value; hard-coded for dimensions 3 by 3, will be incorrect/incomplete with other maze input\n");
-  for(int i = 0; i < 3; i++) {
-	  for(int j = 0; j < 3; j++){
+  for(int i = 0; i < mz->rows; i++) {
+      printf("we got here");
+	  for(int j = 0; j < mz->cols; j++){
    	  char ch = fgetc(fptr);
       printf("%c ", ch);
+      
+      struct square holder = {ch, TOEXPLORE, i, j, NULL};
+
+      (*mz).grid[i][j] = holder;
     }
     printf("\n");
    	fgetc(fptr); // Consume newline
