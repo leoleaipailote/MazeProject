@@ -11,6 +11,8 @@
  * Return a pointer to a newly-heap-allocated struct stack. Don't forget to
  * initialize the contents of the struct!
  */
+
+ //Creating a new stack means we must initialize top which is initially set to null
 struct stack *stack_new() {       
   struct stack* l1 = malloc(sizeof(struct stack));
   l1->top = NULL;
@@ -23,17 +25,18 @@ struct stack *stack_new() {
  * another copy of the square on the heap.
  */
 void stack_push(struct stack *stk, struct square *sq) {     
-     
+   //create a new node which contains the square parameter to push onto the stack  
    struct node* n = malloc(sizeof(struct node));
+   n->next = NULL;  
    n->sq = sq;
-   
+   //If the stack was previously empty then set the new node to be the top of the stack
    if(stk->top  == NULL){
        stk->top = n;
    }
+   //Otherwise set the new node to point to the node that was previously on top of the stack, and set 
+   //this new node to be the top of the stack
    else{
-       struct node* x = stk->top;
-       x = (*x).next;
-       (*n).next = x;
+       n->next = stk->top;
        stk->top = n;   
    }
 }
@@ -44,18 +47,19 @@ void stack_push(struct stack *stk, struct square *sq) {
  */
 struct square *stack_pop(struct stack *stk) { 
   struct node* x = stk->top;
-  if(stk->top = NULL){
+  //If stack is already empty, then nothing can be popped
+  if(stk->top == NULL){
     return NULL;
   }
-  else{  
-    x = (*x).next; 
-    struct sq* s = (*x).sq;
+  else{   
+    struct square* s = x->sq;
+    //If the stack only contains one node, then pop that node and set the stack to be empty.
     if((*x).next == NULL){
       stk->top = NULL;
     }
+    //Otherwise pop the top node and set the next node to be the top of the stack
     else{
-      struct node* y = (*x).next;
-      stk->top = y;
+      stk->top = x->next;
     }
     free(x);
     x = NULL;
@@ -70,18 +74,22 @@ struct square *stack_pop(struct stack *stk) {
  */
 void stack_free(struct stack *stk) {     
   struct node* x = stk->top;
+  //If the stack is already empty then we should just free the stack
     if(stk->top == NULL){
         free(stk);
         stk = NULL;
     }
+    //Otherwise we have to free each node starting from the top of the stack all the way to the end. 
+    //Once we have freed every nodein the stack then we can free the stack itself.
     else{
         struct node* temp = stk->top;
-        while((*x).next!= NULL){
+        while(x != NULL){
             x = (*x).next;
             free(temp);
             temp = x;
         }
         free(temp);
+        free(stk);
     }      
 }
 
@@ -106,4 +114,6 @@ void stack_print(struct stack *s) {
       iter = iter->next;
     }
   } 
+}
+int main(){
 }
