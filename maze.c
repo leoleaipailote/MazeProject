@@ -20,7 +20,6 @@ void maze_squares_fill(struct maze*, FILE *);
  */
 struct maze *maze_new(const char *filename) {     
   //TOUPDATE/COMPLETE
-  printf("TODO: complete maze_new");
   int rows, cols;
   FILE *in_file;
   in_file = fopen(filename, "r");
@@ -37,12 +36,6 @@ struct maze *maze_new(const char *filename) {
 
     (*ret).rows = rows;
     ret->cols = cols;
-
-    struct square *strt = malloc ( sizeof(struct square) );
-    struct square *ex = malloc ( sizeof(struct square) );
-
-    ret->start = strt;
-    ret->exit = ex;
 
     struct square **gr = malloc( sizeof( struct square *) * rows);
 
@@ -76,26 +69,44 @@ struct maze *maze_new(const char *filename) {
  *  - Code should use and update the passed struct maze 
  */
 void maze_squares_fill(struct maze* mz, FILE *fptr) {     
-  printf("TODO: complete maze_squares_fill");
 
   for(int i = 0; i < mz->rows; i++) {
-      printf("we got here");
 	  for(int j = 0; j < mz->cols; j++){
    	  char ch = fgetc(fptr);
       printf("%c ", ch);
       
-      struct square holder = {ch, TOEXPLORE, i, j, NULL};
+      struct square holder = {EMPTY, TOEXPLORE, i, j, NULL};
+      struct square *ptr = &holder;
 
-      (*mz).grid[i][j] = holder;
+      ptr->type = ch;
+
+      (*mz).grid[i][j] = *ptr;
+      
+      if( ch == START){
+        mz->start = &(*mz).grid[i][j];
+      }else if( ch == EXIT){
+        mz->exit = &(*mz).grid[i][j];
+      }
     }
+    
     printf("\n");
    	fgetc(fptr); // Consume newline
   }
+    printf("\n");
+    square_print(mz->start);
+    square_print(mz->exit);
 }
 
 void maze_free(struct maze *mz) {     
   // TODO
-  printf("TODO: implement maze_free");
+
+  for(int i = 0; i < mz->rows; i++){
+    free( (*mz).grid[i] );
+  }
+
+  free( mz->grid );
+
+  free( mz);
 }
 
 /*
