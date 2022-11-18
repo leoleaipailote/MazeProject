@@ -1,0 +1,269 @@
+gcc -g -Wall -std=c11 -shared -o libmaze.so maze.c
+gcc -g -Wall -std=c11 -shared -o libstack.so stack.c
+gcc -g -Wall -std=c11 -o test_stack test_stack.c -L. -lmaze -lstack
+gcc -g -Wall -std=c11 -o test_maze test_maze.c -L. -lmaze -lstack
+=== maze_new allocates maze on heap (00a) ======================================
+rows 2 and columns 3 
+# . S 
+E . # 
+=== PASS (1/1) =================================================================
+
+=== maze_new allocates proper top-level grid array (01a) =======================
+==291681== 16 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==291681==    definitely lost: 16 bytes in 1 blocks
+=== PASS (2/2) =================================================================
+
+=== maze_new allocates proper sub grid arrays (01b) ============================
+==291704== 144 bytes in 2 blocks are definitely lost in loss record 1 of 1
+==291704==    definitely lost: 144 bytes in 2 blocks
+=== PASS (2/2) =================================================================
+
+=== maze_new initializes dimensions (00c) ======================================
+rows 2 and columns 3 
+# . S 
+E . # 
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== maze_new stores squares in row-major order (00d) ===========================
+rows 2 and columns 3 
+# . S 
+E . # 
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== maze_squares_fill initializes standing and parent fields (00e) =============
+rows 2 and columns 3 
+# . S 
+E . # 
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== maze_squares_fill initializes state for start squares (00f) ================
+rows 2 and columns 3 
+# . S 
+E . # 
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== maze_squares_fill initializes state for wall squares (00g) =================
+rows 2 and columns 3 
+# . S 
+E . # 
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== maze_new initializes start (00h) ===========================================
+rows 2 and columns 3 
+# . S 
+E . # 
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== maze_new initializes exit (00i) ============================================
+rows 2 and columns 3 
+# . S 
+E . # 
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== maze_free frees grid (01c) =================================================
+==291859== Memcheck, a memory error detector
+==291859== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==291859== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==291859== Command: /home/student/current-semester/projects/maze/grading/tests/01c.bin
+==291859== 
+==291859== 
+==291859== HEAP SUMMARY:
+==291859==     in use at exit: 0 bytes in 0 blocks
+==291859==   total heap usage: 4 allocs, 4 frees, 192 bytes allocated
+==291859== 
+==291859== All heap blocks were freed -- no leaks are possible
+==291859== 
+==291859== For lists of detected and suppressed errors, rerun with: -s
+==291859== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==291859== All heap blocks were freed -- no leaks are possible
+=== PASS (2/2) =================================================================
+
+=== maze_free frees maze (01d) =================================================
+==291882== Memcheck, a memory error detector
+==291882== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==291882== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==291882== Command: /home/student/current-semester/projects/maze/grading/tests/01d.bin
+==291882== 
+==291882== 
+==291882== HEAP SUMMARY:
+==291882==     in use at exit: 0 bytes in 0 blocks
+==291882==   total heap usage: 1 allocs, 1 frees, 32 bytes allocated
+==291882== 
+==291882== All heap blocks were freed -- no leaks are possible
+==291882== 
+==291882== For lists of detected and suppressed errors, rerun with: -s
+==291882== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==291882== All heap blocks were freed -- no leaks are possible
+=== PASS (1/1) =================================================================
+
+=== stack_new allocates stack on heap (02a) ====================================
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== stack_new initializes stack (02b) ==========================================
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== stack_push allocates node on heap (02c) ====================================
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== stack_push stores pointer (02d) ============================================
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== stack_push inserts at top in empty stack (02e) =============================
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== stack_push inserts at top of stack with a single node (02f) ================
+All tests passed.
+=== PASS (2/2) =================================================================
+
+=== stack_push inserts at top of stack with multiple notes (02g) ===============
+All tests passed.
+=== PASS (2/2) =================================================================
+
+=== stack_pop returns NULL for an empty stack (02h) ============================
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== stack_pop returns top value of stack with a single node (02i) ==============
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== stack_pop updates top of stack with a single node (02j) ====================
+All tests passed.
+=== PASS (2/2) =================================================================
+
+=== stack_pop frees node from a stack with a single node (03a) =================
+==292106== Memcheck, a memory error detector
+==292106== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==292106== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==292106== Command: /home/student/current-semester/projects/maze/grading/tests/03a.bin
+==292106== 
+==292106== 
+==292106== HEAP SUMMARY:
+==292106==     in use at exit: 0 bytes in 0 blocks
+==292106==   total heap usage: 2 allocs, 2 frees, 24 bytes allocated
+==292106== 
+==292106== All heap blocks were freed -- no leaks are possible
+==292106== 
+==292106== For lists of detected and suppressed errors, rerun with: -s
+==292106== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==292106== All heap blocks were freed -- no leaks are possible
+=== PASS (2/2) =================================================================
+
+=== stack_pop returns top value of stack with multiple nodes (02k) =============
+All tests passed.
+=== PASS (1/1) =================================================================
+
+=== stack_pop updates top of stack with multiple nodes (02l) ===================
+All tests passed.
+=== PASS (2/2) =================================================================
+
+=== stack_pop frees node from a stack with multiple nodes (03b) ================
+==292167== Memcheck, a memory error detector
+==292167== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==292167== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==292167== Command: /home/student/current-semester/projects/maze/grading/tests/03b.bin
+==292167== 
+==292167== 
+==292167== HEAP SUMMARY:
+==292167==     in use at exit: 0 bytes in 0 blocks
+==292167==   total heap usage: 4 allocs, 4 frees, 56 bytes allocated
+==292167== 
+==292167== All heap blocks were freed -- no leaks are possible
+==292167== 
+==292167== For lists of detected and suppressed errors, rerun with: -s
+==292167== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==292167== All heap blocks were freed -- no leaks are possible
+=== PASS (1/1) =================================================================
+
+=== stack_free frees stack (03c) ===============================================
+==292190== Memcheck, a memory error detector
+==292190== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==292190== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==292190== Command: /home/student/current-semester/projects/maze/grading/tests/03c.bin
+==292190== 
+==292190== 
+==292190== HEAP SUMMARY:
+==292190==     in use at exit: 0 bytes in 0 blocks
+==292190==   total heap usage: 1 allocs, 1 frees, 8 bytes allocated
+==292190== 
+==292190== All heap blocks were freed -- no leaks are possible
+==292190== 
+==292190== For lists of detected and suppressed errors, rerun with: -s
+==292190== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==292190== All heap blocks were freed -- no leaks are possible
+=== PASS (1/1) =================================================================
+
+=== stack_free frees node (03d) ================================================
+==292213== Memcheck, a memory error detector
+==292213== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==292213== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==292213== Command: /home/student/current-semester/projects/maze/grading/tests/03d.bin
+==292213== 
+==292213== 
+==292213== HEAP SUMMARY:
+==292213==     in use at exit: 0 bytes in 0 blocks
+==292213==   total heap usage: 2 allocs, 2 frees, 24 bytes allocated
+==292213== 
+==292213== All heap blocks were freed -- no leaks are possible
+==292213== 
+==292213== For lists of detected and suppressed errors, rerun with: -s
+==292213== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==292213== All heap blocks were freed -- no leaks are possible
+=== PASS (1/1) =================================================================
+
+=== stack_free frees multiple nodes (03e) ======================================
+==292236== Memcheck, a memory error detector
+==292236== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==292236== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==292236== Command: /home/student/current-semester/projects/maze/grading/tests/03e.bin
+==292236== 
+==292236== 
+==292236== HEAP SUMMARY:
+==292236==     in use at exit: 0 bytes in 0 blocks
+==292236==   total heap usage: 4 allocs, 4 frees, 56 bytes allocated
+==292236== 
+==292236== All heap blocks were freed -- no leaks are possible
+==292236== 
+==292236== For lists of detected and suppressed errors, rerun with: -s
+==292236== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==292236== All heap blocks were freed -- no leaks are possible
+=== PASS (1/1) =================================================================
+
+=== Maze functions do not contain repeated code (M) ============================
+=== MANUAL (?/2) ===============================================================
+
+=== Stack functions do not contain repeated code (M) ===========================
+=== MANUAL (?/2) ===============================================================
+
+=== No memory errors for stack functions (05a) =================================
+==292318== All heap blocks were freed -- no leaks are possible
+==292318== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+=== PASS (2/2) =================================================================
+
+=== No memory errors for maze functions (05b) ==================================
+==292341== All heap blocks were freed -- no leaks are possible
+==292341== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+=== PASS (2/2) =================================================================
+
+=== Compiles without warnings (04a) ============================================
+=== PASS (2/2) =================================================================
+
+=== Comments (M) ===============================================================
+=== MANUAL (?/2) ===============================================================
+
+=== Multiple git commits (04b) =================================================
+9 commits
+=== PASS (1/1) =================================================================
+

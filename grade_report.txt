@@ -1,0 +1,48 @@
+CORRECTNESS
+-------------------------------------------------------------------------
+MAZE FUNCTIONS
+ maze_new allocates maze on heap                            [PASS]   1/1
+ maze_new allocates proper top-level grid array             [PASS]   2/2
+ maze_new allocates proper sub grid arrays                  [PASS]   2/2
+ maze_new initializes dimensions                            [PASS]   1/1
+ maze_new stores squares in row-major order                 [PASS]   1/1
+ maze_squares_fill initializes standing and parent fields   [PASS]   1/1
+ maze_squares_fill initializes state for start squares      [PASS]   1/1
+ maze_squares_fill initializes state for wall squares       [PASS]   1/1
+ maze_new initializes start                                 [PASS]   1/1
+ maze_new initializes exit                                  [PASS]   1/1
+ maze_free frees grid                                       [PASS]   2/2
+ maze_free frees maze                                       [PASS]   1/1
+STACK FUNTIONS
+ stack_new allocates stack on heap                          [PASS]   1/1
+ stack_new initializes stack                                [PASS]   1/1
+ stack_push allocates node on heap                          [PASS]   1/1
+ stack_push stores pointer                                  [PASS]   1/1
+ stack_push inserts at top in empty stack                   [PASS]   1/1
+ stack_push inserts at top of stack with a single node      [PASS]   2/2
+ stack_push inserts at top of stack with multiple notes     [PASS]   2/2
+ stack_pop returns NULL for an empty stack                  [PASS]   1/1
+ stack_pop returns top value of stack with a single node    [PASS]   1/1
+ stack_pop updates top of stack with a single node          [PASS]   2/2
+ stack_pop frees node from a stack with a single node       [PASS]   2/2
+ stack_pop returns top value of stack with multiple nodes   [PASS]   1/1
+ stack_pop updates top of stack with multiple nodes         [PASS]   2/2
+ stack_pop frees node from a stack with multiple nodes      [PASS]   1/1
+ stack_free frees stack                                     [PASS]   1/1
+ stack_free frees node                                      [PASS]   1/1
+ stack_free frees multiple nodes                            [PASS]   1/1
+-------------------------------------------------------------------------
+                                           CORRECTNESS TOTAL        37/37
+
+STYLE
+-------------------------------------------------------------------------
+ Maze functions do not contain repeated code                [PASS]   2/2
+ Stack functions do not contain repeated code               [PASS]   2/2
+ No memory errors for stack functions                       [PASS]   3/3
+ No memory errors for maze functions                        [PASS]   3/3
+ Compiles without warnings                                  [PASS]   2/2
+ Multiple git commits                                       [PASS]   1/1
+-------------------------------------------------------------------------
+                                                 STYLE TOTAL        13/13
+
+                                                       TOTAL        50/50
